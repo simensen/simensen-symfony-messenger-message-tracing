@@ -11,7 +11,8 @@ use Simensen\SymfonyMessenger\MessageTracing\Uid\Ulid;
 use Symfony\Component\Uid\Uuid;
 
 /**
- * @implements TraceIdentityComparator<string|Uuid|Ulid>
+ * @template TIdentity of string|Uuid|Ulid
+ * @implements TraceIdentityComparator<TIdentity>
  */
 class SymfonyUidIdentityComparator implements TraceIdentityComparator
 {

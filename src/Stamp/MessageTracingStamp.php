@@ -13,30 +13,30 @@ use Simensen\SymfonyMessenger\MessageTracing\TraceIdentity\SymfonyUidIdentityCom
 use Symfony\Component\Messenger\Stamp\StampInterface;
 
 /**
- * @template T
+ * @template TIdentity
  *
- * @implements Trace<T>
+ * @implements Trace<TIdentity>
  */
 class MessageTracingStamp implements Trace, StampInterface
 {
     /**
-     * @use TraceGenerationBehavior<T>
+     * @use TraceGenerationBehavior<TIdentity>
      */
     use TraceGenerationBehavior;
 
     /**
-     * @use TraceComparisonBehavior<T>
+     * @use TraceComparisonBehavior<TIdentity>
      */
     use TraceComparisonBehavior;
 
     use TraceGettersBehavior;
 
     /**
-     * @return TraceIdentityComparator<T>
+     * @return TraceIdentityComparator<TIdentity>
      */
     protected function getDefaultTraceIdentityComparator(): TraceIdentityComparator
     {
-        /** @var TraceIdentityComparator<T> */
+        /** @var TraceIdentityComparator<TIdentity> */
         return new SymfonyUidIdentityComparator();
     }
 }
