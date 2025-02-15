@@ -1,4 +1,4 @@
-name: PHPUnit - Coverage
+name: PHPUnit
 
 on: # yamllint disable-line rule:truthy
   push:
@@ -9,11 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
-      fail-fast: true
       matrix:
-        php: [8.4]
+        php: [8.2, 8.3, 8.4]
         composer-flags: [ '' ]
-        stability: ['prefer-stable']
+        stability: ['prefer-lowest', 'prefer-stable']
         experimental: [false]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.stability }}
@@ -26,7 +25,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          coverage: xdebug
           tools: phpunit
 
       - name: Get Composer Cache Directory
@@ -42,6 +40,9 @@ jobs:
             ${{ runner.os }}-composer-${{ matrix.stability }}-
             ${{ runner.os }}-composer-
 
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
       - name: Configure non-packagist simensen/message-tracing repository
         run: composer config repositories.simensen-message-tracing vcs git@github.com:simensen/simensen-message-tracing.git
 
@@ -49,9 +50,4 @@ jobs:
         run: composer update --${{ matrix.stability }} ${{ matrix.composer-flags }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: phpunit --coverage-clover=coverage.clover
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+        run: make phpunit

@@ -4,10 +4,13 @@
   "license": "MIT",
   "type": "lib",
   "require": {
-    "php": ">=8.2"
+    "php": ">=8.2",
+    "simensen/message-tracing": "^0.0@dev",
+    "symfony/messenger": "^6.4 || ^7.0"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.45",
+    "phpunit/phpunit": "^11.2.8",
     "symfony/uid": "^6.4 || ^7.0"
   },
   "minimum-stability": "stable",

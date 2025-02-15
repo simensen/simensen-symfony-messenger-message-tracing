@@ -1,6 +1,6 @@
-name: Tests
+name: PHPStan
 
-on:
+on: # yamllint disable-line rule:truthy
   push:
   pull_request:
 
@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
-      fail-fast: true
       matrix:
         php: [8.2, 8.3, 8.4]
         composer-flags: [ '' ]
@@ -26,7 +25,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          tools: phpunit, phpstan
+          tools: phpstan
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -41,15 +40,12 @@ jobs:
             ${{ runner.os }}-composer-${{ matrix.stability }}-
             ${{ runner.os }}-composer-
 
-      - name: Setup problem matchers for PHPUnit
-        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Configure non-packagist simensen/message-tracing repository
+        run: composer config repositories.simensen-message-tracing vcs git@github.com:simensen/simensen-message-tracing.git
 
       - name: Install dependencies
         run: composer update --${{ matrix.stability }} ${{ matrix.composer-flags }} --prefer-dist --no-interaction --no-progress
 
-      - name: Execute tests
-        run: phpunit --coverage-clover=coverage.clover
-
       - name: Run PHPStan
         if: ${{ matrix.experimental == false }}
-        run: phpstan analyze -l9 src tests/Fixtures
+        run: make phpstan
