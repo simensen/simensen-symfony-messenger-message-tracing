@@ -12,6 +12,7 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @template TIdentity of string|Uuid|Ulid
+ *
  * @implements TraceIdentityComparator<TIdentity>
  */
 class SymfonyUidIdentityComparator implements TraceIdentityComparator
