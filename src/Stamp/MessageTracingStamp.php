@@ -8,6 +8,8 @@ use Simensen\MessageTracing\Behavior\Trace\TraceComparisonBehavior;
 use Simensen\MessageTracing\Behavior\Trace\TraceGenerationBehavior;
 use Simensen\MessageTracing\Behavior\Trace\TraceGettersBehavior;
 use Simensen\MessageTracing\Trace;
+use Simensen\MessageTracing\TraceIdentityComparator;
+use Simensen\SymfonyMessenger\MessageTracing\TraceIdentity\SymfonyUidIdentityComparator;
 use Symfony\Component\Messenger\Stamp\StampInterface;
 
 /**
@@ -21,6 +23,20 @@ class MessageTracingStamp implements Trace, StampInterface
      * @use TraceGenerationBehavior<T>
      */
     use TraceGenerationBehavior;
-    use TraceGettersBehavior;
+
+    /**
+     * @use TraceComparisonBehavior<T>
+     */
     use TraceComparisonBehavior;
+
+    use TraceGettersBehavior;
+
+    /**
+     * @return TraceIdentityComparator<T>
+     */
+    protected function getDefaultTraceIdentityComparator(): TraceIdentityComparator
+    {
+        /** @var TraceIdentityComparator<T> */
+        return new SymfonyUidIdentityComparator();
+    }
 }
