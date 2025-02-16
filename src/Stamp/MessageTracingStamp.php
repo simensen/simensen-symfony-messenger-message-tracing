@@ -36,7 +36,6 @@ class MessageTracingStamp implements Trace, StampInterface
      */
     protected function getDefaultTraceIdentityComparator(): TraceIdentityComparator
     {
-        /** @var TraceIdentityComparator<TIdentity> */
-        return new SymfonyUidIdentityComparator();
+        return new SymfonyUidIdentityComparator(); /* @phpstan-ignore return.type */
     }
 }

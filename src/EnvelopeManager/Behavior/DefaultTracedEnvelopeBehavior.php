@@ -10,19 +10,19 @@ use Simensen\SymfonyMessenger\MessageTracing\Stamp\MessageTracingStamp;
 use Symfony\Component\Messenger\Envelope;
 
 /**
- * @template T
+ * @template TIdentity
  */
 trait DefaultTracedEnvelopeBehavior
 {
     /**
-     * @use DefaultTracedContainerManagerBehavior<Envelope,T>
+     * @use DefaultTracedContainerManagerBehavior<Envelope,TIdentity>
      */
     use DefaultTracedContainerManagerBehavior;
 
     /**
      * @param Envelope $container
      *
-     * @return ?MessageTracingStamp<T>
+     * @return ?MessageTracingStamp<TIdentity>
      */
     protected function extractTraceFromContainer(mixed $container): ?Trace
     {
@@ -31,7 +31,7 @@ trait DefaultTracedEnvelopeBehavior
 
     /**
      * @param Envelope $container
-     * @param Trace<T> $trace
+     * @param Trace<TIdentity> $trace
      *
      * @return Envelope
      */
