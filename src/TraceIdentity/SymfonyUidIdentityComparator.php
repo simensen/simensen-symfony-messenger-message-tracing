@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simensen\SymfonyMessenger\MessageTracing\TraceIdentity;
 
-use Simensen\MessageTracing\Adapter\StringableTraceIdentityComparator;
-use Simensen\MessageTracing\Trace;
-use Simensen\MessageTracing\TraceIdentityComparator;
+use Simensen\MessageTracing\Trace\Trace;
+use Simensen\MessageTracing\TraceIdentity\Adapter\StringableTraceIdentityComparator;
+use Simensen\MessageTracing\TraceIdentity\TraceIdentityComparator;
 use Simensen\SymfonyMessenger\MessageTracing\Uid\Ulid;
 use Symfony\Component\Uid\Uuid;
 

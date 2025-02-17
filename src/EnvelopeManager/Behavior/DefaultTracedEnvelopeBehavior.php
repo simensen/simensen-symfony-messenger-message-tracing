@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simensen\SymfonyMessenger\MessageTracing\EnvelopeManager\Behavior;
 
-use Simensen\MessageTracing\Behavior\TracedContainerManager\DefaultTracedContainerManagerBehavior;
-use Simensen\MessageTracing\Trace;
+use Simensen\MessageTracing\Trace\Trace;
+use Simensen\MessageTracing\TracedContainerManager\Behavior\DefaultTracedContainerManagerBehavior;
 use Simensen\SymfonyMessenger\MessageTracing\Stamp\MessageTracingStamp;
 use Symfony\Component\Messenger\Envelope;
 

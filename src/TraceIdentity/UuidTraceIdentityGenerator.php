@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Simensen\SymfonyMessenger\MessageTracing\TraceIdentity;
 
-use Simensen\MessageTracing\TraceIdentityGenerator;
+use Simensen\MessageTracing\TraceIdentity\TraceIdentityGenerator;
 use Symfony\Component\Uid\Uuid;
 
 /**

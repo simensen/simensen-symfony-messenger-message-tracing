@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simensen\SymfonyMessenger\MessageTracing\EnvelopeManager;
 
-use Simensen\MessageTracing\Behavior\TracedContainerManager\CausationTracedContainerManagerBehavior;
-use Simensen\MessageTracing\TracedContainerManager;
-use Simensen\MessageTracing\TraceStack;
+use Simensen\MessageTracing\TracedContainerManager\Behavior\CausationTracedContainerManagerBehavior;
+use Simensen\MessageTracing\TracedContainerManager\TracedContainerManager;
+use Simensen\MessageTracing\TraceStack\TraceStack;
 use Simensen\SymfonyMessenger\MessageTracing\EnvelopeManager\Behavior\DefaultTracedEnvelopeBehavior;
 use Symfony\Component\Messenger\Envelope;
 
