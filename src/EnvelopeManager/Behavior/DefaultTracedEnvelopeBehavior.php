@@ -6,6 +6,7 @@ namespace Simensen\SymfonyMessenger\MessageTracing\EnvelopeManager\Behavior;
 
 use Simensen\MessageTracing\Trace\Trace;
 use Simensen\MessageTracing\TracedContainerManager\Behavior\DefaultTracedContainerManagerBehavior;
+use Simensen\SymfonyMessenger\MessageTracing\EnvelopeManager\EnvelopeUtils;
 use Simensen\SymfonyMessenger\MessageTracing\Stamp\MessageTracingStamp;
 use Symfony\Component\Messenger\Envelope;
 
@@ -26,7 +27,7 @@ trait DefaultTracedEnvelopeBehavior
      */
     protected function extractTraceFromContainer(mixed $container): ?Trace
     {
-        return $container->last(MessageTracingStamp::class);
+        return EnvelopeUtils::last($container, MessageTracingStamp::class);
     }
 
     /**
@@ -39,8 +40,6 @@ trait DefaultTracedEnvelopeBehavior
     {
         assert($trace instanceof MessageTracingStamp);
 
-        return $container
-            ->withoutStampsOfType(MessageTracingStamp::class)
-            ->with($trace);
+        return EnvelopeUtils::withOnly($container, MessageTracingStamp::class, $trace);
     }
 }

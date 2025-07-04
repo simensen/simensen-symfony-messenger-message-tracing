@@ -14,7 +14,6 @@ use Symfony\Component\Uid\Uuid;
  */
 class SymfonyUidMessageTracingStamp extends MessageTracingStamp
 {
-
     /**
      * @return TraceIdentityComparator<string|Uuid|Ulid>
      */

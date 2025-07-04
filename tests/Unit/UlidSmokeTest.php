@@ -7,6 +7,7 @@ namespace Simensen\SymfonyMessenger\MessageTracing\Tests\Unit;
 use PHPUnit\Framework\TestCase;
 use Simensen\MessageTracing\Testing\MessageTracingScenario;
 use Simensen\MessageTracing\Testing\MessageTracingScenarioBehavior;
+use Simensen\SymfonyMessenger\MessageTracing\EnvelopeManager\EnvelopeUtils;
 use Simensen\SymfonyMessenger\MessageTracing\Stamp\MessageTracingStamp;
 use Simensen\SymfonyMessenger\MessageTracing\Testing\UlidEnvelopeTracingScenario;
 use Simensen\SymfonyMessenger\MessageTracing\Uid\Ulid;
@@ -28,12 +29,12 @@ class UlidSmokeTest extends TestCase
     {
         $envelopeOne = Envelope::wrap(new \stdClass());
 
-        self::assertNull($envelopeOne->last(MessageTracingStamp::class));
+        self::assertNull(EnvelopeUtils::last($envelopeOne, MessageTracingStamp::class));
         self::assertTrue($this->messageTracingScenario()->getTraceStack()->isEmpty());
 
         $envelopeOne = $this->messageTracingScenario()->getCausationTracedContainerManager()->push($envelopeOne);
 
-        self::assertNotNull($envelopeTracerOne = $envelopeOne->last(MessageTracingStamp::class));
+        self::assertNotNull($envelopeTracerOne = EnvelopeUtils::last($envelopeOne, MessageTracingStamp::class));
         self::assertTrue($this->messageTracingScenario()->getTraceStack()->isNotEmpty());
         self::assertTrue($this->messageTracingScenario()->getTraceStack()->isTail($envelopeTracerOne));
 
@@ -41,7 +42,7 @@ class UlidSmokeTest extends TestCase
 
         $envelopeTwo = $this->messageTracingScenario()->getCorrelationTracedContainerManager()->push($envelopeTwo);
 
-        self::assertNotNull($envelopeTracerTwo = $envelopeTwo->last(MessageTracingStamp::class));
+        self::assertNotNull($envelopeTracerTwo = EnvelopeUtils::last($envelopeTwo, MessageTracingStamp::class));
         self::assertFalse($envelopeTracerTwo->equals($envelopeTracerOne));
         self::assertTrue($this->messageTracingScenario()->getTraceStack()->isTail($envelopeTracerOne));
 
@@ -49,7 +50,7 @@ class UlidSmokeTest extends TestCase
 
         $envelopeThree = $this->messageTracingScenario()->getCausationTracedContainerManager()->push($envelopeThree);
 
-        self::assertNotNull($envelopeTracerThree = $envelopeThree->last(MessageTracingStamp::class));
+        self::assertNotNull($envelopeTracerThree = EnvelopeUtils::last($envelopeThree, MessageTracingStamp::class));
         self::assertFalse($envelopeTracerThree->equals($envelopeTracerOne));
         self::assertFalse($envelopeTracerThree->equals($envelopeTracerTwo));
         self::assertTrue($this->messageTracingScenario()->getTraceStack()->isTail($envelopeTracerThree));
