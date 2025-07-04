@@ -42,9 +42,9 @@
     }
   },
   "repositories": {
-    "lib": {
-      "type": "path",
-      "url": "../simensen-message-tracing"
+    "simensen-message-tracing": {
+      "type": "vcs",
+      "url": "https://github.com/simensen/simensen-message-tracing.git"
     }
   }
 }
