@@ -21,6 +21,7 @@ final class EnvelopeUtils
     public static function last(Envelope $envelope, string $stampClass): ?StampInterface
     {
         // Process stamps in reverse order to get the last matching stamp
+        /** @var StampInterface[] $stamps */
         foreach (array_reverse($envelope->all(), true) as $stamps) {
             foreach (array_reverse($stamps) as $stamp) {
                 if ($stamp instanceof $stampClass) {
@@ -45,6 +46,7 @@ final class EnvelopeUtils
         // Remove all stamps that are instances of the given class
         $newEnvelope = $envelope;
         foreach ($envelope->all() as $concreteStampClass => $stamps) {
+            /** @var StampInterface[] $stamps */
             foreach ($stamps as $stamp) {
                 if ($stamp instanceof $stampClass) {
                     $newEnvelope = $newEnvelope->withoutStampsOfType($concreteStampClass);
