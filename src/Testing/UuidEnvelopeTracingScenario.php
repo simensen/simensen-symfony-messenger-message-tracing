@@ -9,7 +9,7 @@ use Simensen\MessageTracing\TraceStack\Adapter\DefaultTraceStack;
 use Simensen\MessageTracing\TraceStack\Adapter\SpyingTraceStack;
 use Simensen\SymfonyMessenger\MessageTracing\EnvelopeManager\CausationTracedEnvelopeManager;
 use Simensen\SymfonyMessenger\MessageTracing\EnvelopeManager\CorrelationTracedEnvelopeManager;
-use Simensen\SymfonyMessenger\MessageTracing\Stamp\SymfonyUidMessageTracingStampGenerator;
+use Simensen\SymfonyMessenger\MessageTracing\Stamp\UuidMessageTracingStampGenerator;
 use Simensen\SymfonyMessenger\MessageTracing\TraceIdentity\UuidTraceIdentityGenerator;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Uid\Uuid;
@@ -22,7 +22,7 @@ final readonly class UuidEnvelopeTracingScenario extends MessageTracingScenario
     public static function create(): self
     {
         $traceIdentityGenerator = new UuidTraceIdentityGenerator();
-        $traceGenerator = new SymfonyUidMessageTracingStampGenerator();
+        $traceGenerator = new UuidMessageTracingStampGenerator();
         $traceStack = new DefaultTraceStack(
             $traceGenerator,
             $traceIdentityGenerator
